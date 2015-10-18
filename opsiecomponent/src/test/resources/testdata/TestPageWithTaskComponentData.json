@@ -1,0 +1,56 @@
+{
+    "componentInstanceId": null,
+    "componentType": "page",
+    "componentCategory": "commons",
+    "componentMetaData": {
+        "contentData": [
+            {
+                "componentInstanceId": null,
+                "componentType": "pageSection",
+                "componentCategory": "commons",
+                "componentMetaData": {
+                    "contentData": [
+                        {
+                            "componentInstanceId": null,
+                            "componentType": "taskPanel",
+                            "componentCategory": "commons",
+                            "componentMetaData": {
+                                "contentData": [
+                                    {
+                                        "componentInstanceId": null,
+                                        "componentType": "taskItem",
+                                        "componentCategory": "commmons",
+                                        "componentMetaData": {
+                                            "contentData": {
+                                                "id": 0,
+                                                "taskName": "Task0",
+                                                "dueDate": 1445202377890
+                                            }
+                                        },
+                                        "componentConfiguration": null
+                                    },
+                                    {
+                                        "componentInstanceId": null,
+                                        "componentType": "taskItem",
+                                        "componentCategory": "commmons",
+                                        "componentMetaData": {
+                                            "contentData": {
+                                                "id": 0,
+                                                "taskName": "Task1",
+                                                "dueDate": 1445202377890
+                                            }
+                                        },
+                                        "componentConfiguration": null
+                                    }
+                                ]
+                            },
+                            "componentConfiguration": null
+                        }
+                    ]
+                },
+                "componentConfiguration": null
+            }
+        ]
+    },
+    "componentConfiguration": null
+}

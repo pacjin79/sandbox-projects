@@ -10,11 +10,14 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.opsie.opsiecomponent.Component;
 import com.opsie.opsiecomponent.ComponentMetaData;
 import java.util.ArrayList;
+import org.springframework.context.annotation.Scope;
 
 /**
  *
  * @author leojin
  */
+@org.springframework.stereotype.Component
+@Scope("prototype")
 public class PageComponent extends Component {
     
     public PageComponent(){
@@ -38,6 +41,12 @@ public class PageComponent extends Component {
         JsonNode contentData = mapper.valueToTree(getSubComponents());
         ComponentMetaData componentMetaData = new ComponentMetaData(contentData);
         return componentMetaData;
+    }
+
+    @Override
+    protected void parseComponentData(JsonNode componentData) {
+        
+        
     }
     
 }

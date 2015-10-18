@@ -6,31 +6,36 @@
 package com.opsie.opsiecomponent.component;
 
 import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.opsie.opsiecomponent.Component;
+import com.opsie.opsiecomponent.ComponentEntityAware;
 import com.opsie.opsiecomponent.ComponentMetaData;
-import com.opsie.opsiecomponent.IComponent;
-import java.util.ArrayList;
-import java.util.List;
+import com.opsie.opsieentity.IComponentEntity;
 import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
 
 /**
  *
- * @author leojin
+ * @author Leo
  */
-@org.springframework.stereotype.Component
+@Component
 @Scope("prototype")
-public class SectionComponent extends Component {
-    
-    public SectionComponent(){
-        super();
-        List <IComponent> subComponents = new ArrayList<>();
-        setSubComponents(subComponents);
+public class FormComponent extends ComponentEntityAware {
+
+    public FormComponent(IComponentEntity entity) {
+        super(entity);
     }
-    
+
+    public FormComponent(Class<? extends IComponentEntity> entityClass) {
+        super(entityClass);
+    }
+
+    @Override
+    public void loadSubComponents() {
+        
+    }
+
     @Override
     protected String provideComponentType() {
-        return "pageSection";
+        return "formContainer";
     }
 
     @Override
@@ -40,15 +45,12 @@ public class SectionComponent extends Component {
 
     @Override
     protected ComponentMetaData provideComponentMetaData() {
-        ObjectMapper mapper = new ObjectMapper();
-        JsonNode contentData = mapper.valueToTree(getSubComponents());
-        ComponentMetaData componentMetaData = new ComponentMetaData(contentData);
-        return componentMetaData;
+return null;
     }
 
     @Override
     protected void parseComponentData(JsonNode componentData) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
+
 }

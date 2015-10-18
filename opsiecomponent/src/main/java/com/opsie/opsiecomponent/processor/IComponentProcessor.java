@@ -14,4 +14,5 @@ import com.opsie.opsiecomponent.IComponent;
 public interface IComponentProcessor {
     
     public void processComponent(IComponent component);
+    public IComponent constructComponentFromMetaData(String metaData);
 }

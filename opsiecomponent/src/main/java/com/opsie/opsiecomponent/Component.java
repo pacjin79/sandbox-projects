@@ -5,20 +5,23 @@
  */
 package com.opsie.opsiecomponent;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.opsie.opsiecomponent.processor.IComponentProcessor;
 import java.util.List;
-
+import org.springframework.beans.factory.annotation.Autowired;
 
 public abstract class Component implements IComponent {
 
     private String componentInstanceId;
     private String componentType;
     private String componentCategory;
-    private List <IComponent> subComponents;  
+    private List<IComponent> subComponents;
     private ComponentMetaData componentMetaData;
     private ComponentConfiguration componentConfiguration;
-    
+    protected IComponentProcessor componentProcessor;
+
     @Override
     public void initComponentInfo() {
         componentCategory = provideComponentCategory();
@@ -26,18 +29,24 @@ public abstract class Component implements IComponent {
     }
 
     @Override
-    public void initSubComponents() {
+    public void loadSubComponents() {
     }
 
     @Override
-    public void initComponentMetaData() {
+    public void loadComponentMetaData() {
         componentMetaData = provideComponentMetaData();
     }
 
     @Override
-    public void parseComponentInfo(String componentData) {}
-    
-     public String getComponentInstanceId() {
+    public void parseComponentInfo(String componentData) {
+        ObjectMapper mapper = new ObjectMapper();
+        JsonNode node = mapper.valueToTree(componentData);
+        this.componentType = node.get("componentType").textValue();
+        this.componentCategory = node.get("componentCategory").textValue();
+        this.parseComponentData(node);
+    }
+
+    public String getComponentInstanceId() {
         return componentInstanceId;
     }
 
@@ -49,6 +58,7 @@ public abstract class Component implements IComponent {
         return componentType;
     }
 
+    @JsonIgnore
     public List<IComponent> getSubComponents() {
         return subComponents;
     }
@@ -84,15 +94,24 @@ public abstract class Component implements IComponent {
     public void setComponentConfiguration(ComponentConfiguration componentConfiguration) {
         this.componentConfiguration = componentConfiguration;
     }
-    
+
+    @Autowired
+    public void setComponentProcessor(IComponentProcessor componentProcessor) {
+        this.componentProcessor = componentProcessor;
+    }
+
     @Override
-    public JsonNode toJson(){
+    public JsonNode toJson() {
         ObjectMapper mapper = new ObjectMapper();
         return mapper.valueToTree(this);
     }
-    
+
     protected abstract String provideComponentType();
+
     protected abstract String provideComponentCategory();
+
     protected abstract ComponentMetaData provideComponentMetaData();
     
+    protected abstract void parseComponentData(JsonNode componentData);
+
 }

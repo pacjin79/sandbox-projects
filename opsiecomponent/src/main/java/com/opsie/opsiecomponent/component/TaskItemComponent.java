@@ -7,43 +7,41 @@ package com.opsie.opsiecomponent.component;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.opsie.opsiecomponent.Component;
+import com.opsie.opsiecomponent.ComponentEntityAware;
 import com.opsie.opsiecomponent.ComponentMetaData;
-import com.opsie.opsiecomponent.IComponent;
-import java.util.ArrayList;
-import java.util.List;
+import com.opsie.opsieentity.IComponentEntity;
+import com.opsie.opsieentity.TaskEntity;
 import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
 
 /**
  *
- * @author leojin
+ * @author Leo
  */
-@org.springframework.stereotype.Component
+@Component
 @Scope("prototype")
-public class SectionComponent extends Component {
-    
-    public SectionComponent(){
-        super();
-        List <IComponent> subComponents = new ArrayList<>();
-        setSubComponents(subComponents);
+public class TaskItemComponent extends ComponentEntityAware {
+
+    public TaskItemComponent(TaskEntity entity) {
+        super(entity);
     }
-    
+
     @Override
     protected String provideComponentType() {
-        return "pageSection";
+        return "taskItem";
     }
 
     @Override
     protected String provideComponentCategory() {
-        return "commons";
+        return "commmons";
     }
 
     @Override
     protected ComponentMetaData provideComponentMetaData() {
         ObjectMapper mapper = new ObjectMapper();
-        JsonNode contentData = mapper.valueToTree(getSubComponents());
-        ComponentMetaData componentMetaData = new ComponentMetaData(contentData);
-        return componentMetaData;
+        JsonNode contentData = mapper.valueToTree(componentEntity);
+        ComponentMetaData metaData = new ComponentMetaData(contentData);
+        return metaData;
     }
 
     @Override

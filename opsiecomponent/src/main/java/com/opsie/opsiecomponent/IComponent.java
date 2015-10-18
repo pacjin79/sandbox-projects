@@ -14,8 +14,8 @@ import java.util.List;
  */
 public interface IComponent {  
     public void initComponentInfo();
-    public void initSubComponents();
-    public void initComponentMetaData();
+    public void loadSubComponents();
+    public void loadComponentMetaData();
     public void parseComponentInfo(String componentData);
     public JsonNode toJson();
 }
