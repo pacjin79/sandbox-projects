@@ -41,19 +41,20 @@ public class SectionDecorator implements IComponent {
     public void initSubComponents() {
         componentToDecorate.initSubComponents();
         SectionComponent sectionComponent = new SectionComponent();
-        componentProcessor.processComponent(sectionComponent);
         sectionComponent.getSubComponents().addAll(componentToDecorate.getSubComponents());
+        componentProcessor.processComponent(sectionComponent);
         componentToDecorate.setSubComponents(new ArrayList<>());
         this.sections.add(sectionComponent);
         componentToDecorate.getSubComponents().addAll(this.sections);
+        componentToDecorate.initComponentMetaData();
     }
 
     @Override
     public void initComponentMetaData() {
         componentToDecorate.initComponentMetaData();
-         ObjectMapper mapper = new ObjectMapper();
-        JsonNode contentData = mapper.valueToTree(componentToDecorate);
-        componentMetaData = new ComponentMetaData(contentData);
+         //ObjectMapper mapper = new ObjectMapper();
+       // JsonNode contentData = mapper.valueToTree(componentToDecorate);
+ //componentMetaData = new ComponentMetaData(contentData);
     }
 
     @Override
@@ -65,11 +66,16 @@ public class SectionDecorator implements IComponent {
         return sectionEnabled;
     }
 
-    public ComponentMetaData getComponentMetaData() {
-        return componentMetaData;
-    }
+//    public ComponentMetaData getComponentMetaData() {
+//        return componentMetaData;
+//    }
+//
+//    public void setComponentMetaData(ComponentMetaData componentMetaData) {
+//        this.componentMetaData = componentMetaData;
+//    }
 
-    public void setComponentMetaData(ComponentMetaData componentMetaData) {
-        this.componentMetaData = componentMetaData;
+    @Override
+    public JsonNode toJson() {
+        return componentToDecorate.toJson();
     }
 }

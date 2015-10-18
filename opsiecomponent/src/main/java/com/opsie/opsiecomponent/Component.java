@@ -5,6 +5,8 @@
  */
 package com.opsie.opsiecomponent;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.List;
 
 
@@ -81,6 +83,12 @@ public abstract class Component implements IComponent {
 
     public void setComponentConfiguration(ComponentConfiguration componentConfiguration) {
         this.componentConfiguration = componentConfiguration;
+    }
+    
+    @Override
+    public JsonNode toJson(){
+        ObjectMapper mapper = new ObjectMapper();
+        return mapper.valueToTree(this);
     }
     
     protected abstract String provideComponentType();

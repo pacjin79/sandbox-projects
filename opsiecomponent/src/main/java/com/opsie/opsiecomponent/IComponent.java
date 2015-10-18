@@ -5,6 +5,7 @@
  */
 package com.opsie.opsiecomponent;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import java.util.List;
 
 /**
@@ -16,4 +17,5 @@ public interface IComponent {
     public void initSubComponents();
     public void initComponentMetaData();
     public void parseComponentInfo(String componentData);
+    public JsonNode toJson();
 }

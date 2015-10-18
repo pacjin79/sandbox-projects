@@ -73,21 +73,14 @@ public class ComponentTest {
     public void test_component_decorate(){
         PageComponent pageComponent = new PageComponent();
         componentProcessor.processComponent(pageComponent);
-        ObjectMapper objectMapper = new ObjectMapper();
-        try {
-            String data = objectMapper.writeValueAsString(pageComponent);
-            System.out.println("data = "+data);
-        } catch (JsonProcessingException ex) {
-            Logger.getLogger(ComponentTest.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        TaskPanelComponent taskComponent = new TaskPanelComponent();
+        componentProcessor.processComponent(taskComponent);
+        pageComponent.getSubComponents().add(taskComponent);
+        componentProcessor.processComponent(pageComponent);
+        System.out.println("prior to decorate data = "+pageComponent.toJson().toString());
         SectionDecorator sectionDecorator = new SectionDecorator(pageComponent, componentProcessor);
         componentProcessor.processComponent(sectionDecorator);
-        try {
-            String data = objectMapper.writeValueAsString(sectionDecorator.getComponentMetaData());
-            System.out.println("after decorate data = "+data);
-        } catch (JsonProcessingException ex) {
-            Logger.getLogger(ComponentTest.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        System.out.println("after decorate data = "+pageComponent.toJson().toString());
     }
     
 }
