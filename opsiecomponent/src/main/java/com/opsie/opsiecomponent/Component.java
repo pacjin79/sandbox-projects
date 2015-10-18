@@ -13,11 +13,14 @@ public abstract class Component implements IComponent {
     private String componentInstanceId;
     private String componentType;
     private String componentCategory;
-    private List <Component> subComponents;  
+    private List <IComponent> subComponents;  
     private ComponentMetaData componentMetaData;
+    private ComponentConfiguration componentConfiguration;
     
     @Override
     public void initComponentInfo() {
+        componentCategory = provideComponentCategory();
+        componentType = provideComponentType();
     }
 
     @Override
@@ -26,6 +29,7 @@ public abstract class Component implements IComponent {
 
     @Override
     public void initComponentMetaData() {
+        componentMetaData = provideComponentMetaData();
     }
 
     @Override
@@ -43,11 +47,11 @@ public abstract class Component implements IComponent {
         return componentType;
     }
 
-    public List<Component> getSubComponents() {
+    public List<IComponent> getSubComponents() {
         return subComponents;
     }
 
-    public void setSubComponents(List<Component> subComponents) {
+    public void setSubComponents(List<IComponent> subComponents) {
         this.subComponents = subComponents;
     }
 
@@ -70,5 +74,17 @@ public abstract class Component implements IComponent {
     public void setComponentCategory(String componentCategory) {
         this.componentCategory = componentCategory;
     }
+
+    public ComponentConfiguration getComponentConfiguration() {
+        return componentConfiguration;
+    }
+
+    public void setComponentConfiguration(ComponentConfiguration componentConfiguration) {
+        this.componentConfiguration = componentConfiguration;
+    }
+    
+    protected abstract String provideComponentType();
+    protected abstract String provideComponentCategory();
+    protected abstract ComponentMetaData provideComponentMetaData();
     
 }

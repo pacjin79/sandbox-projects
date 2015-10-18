@@ -5,6 +5,8 @@
  */
 package com.opsie.opsiecomponent;
 
+import java.util.List;
+
 /**
  *
  * @author Leo

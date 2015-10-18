@@ -5,6 +5,9 @@
  */
 package com.opsie.opsiecomponent.config;
 
+import com.opsie.opsiecomponent.processor.ComponentProcessorImpl;
+import com.opsie.opsiecomponent.processor.IComponentProcessor;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
@@ -18,4 +21,8 @@ import org.springframework.context.annotation.Configuration;
 )
 public class ComponentConfig {
     
+    @Bean
+    public IComponentProcessor componentProcessor(){
+        return new ComponentProcessorImpl();
+    }
 }

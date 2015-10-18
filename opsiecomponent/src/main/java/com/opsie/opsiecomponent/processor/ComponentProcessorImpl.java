@@ -13,7 +13,9 @@ public class ComponentProcessorImpl implements IComponentProcessor {
 
     @Override
     public void processComponent(IComponent component) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        component.initComponentInfo();
+        component.initSubComponents();
+        component.initComponentMetaData();
     }
     
 }
