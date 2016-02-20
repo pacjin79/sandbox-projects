@@ -7,8 +7,10 @@ package com.opsie.drools;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.charset.Charset;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.apache.commons.io.IOUtils;
 import org.drools.KnowledgeBase;
 import org.drools.builder.KnowledgeBuilder;
 import org.drools.builder.KnowledgeBuilderFactory;
@@ -39,7 +41,8 @@ public class TestDroolsExecution {
     public void testMyRulesExection (){
         KnowledgeBuilder knowledgeBuilder = KnowledgeBuilderFactory.newKnowledgeBuilder();
         try {
-            knowledgeBuilder.add(ResourceFactory.newFileResource(myRulesDrl.getFile()), ResourceType.DRL);
+            String rulesStr = IOUtils.toString(myRulesDrl.getInputStream());
+            knowledgeBuilder.add(ResourceFactory.newByteArrayResource(rulesStr.getBytes(Charset.defaultCharset())), ResourceType.DRL);
         } catch (IOException ex) {
             Logger.getLogger(TestDroolsExecution.class.getName()).log(Level.SEVERE, null, ex);
         }
