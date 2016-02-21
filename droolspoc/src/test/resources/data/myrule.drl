@@ -1,8 +1,10 @@
 package demo
 import com.opsie.drools.Account
+dialect "mvel"
+
 rule "accountBalanceAtLast"
     when
-    $account : Account(balance < 100)
+    $account : Account(balance > 0)
     then
     System.out.println("Warning! Money running out!");
 end
