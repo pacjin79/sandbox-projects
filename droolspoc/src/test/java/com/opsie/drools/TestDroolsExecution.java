@@ -6,27 +6,17 @@
 package com.opsie.drools;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.nio.charset.Charset;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.apache.commons.io.IOUtils;
-import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.kie.api.KieBase;
 import org.kie.api.KieServices;
 import org.kie.api.builder.KieBuilder;
 import org.kie.api.builder.KieFileSystem;
 import org.kie.api.builder.KieRepository;
 import org.kie.api.io.KieResources;
-import org.kie.api.io.ResourceType;
-import org.kie.internal.KnowledgeBase;
-import org.kie.internal.builder.KnowledgeBuilder;
-import org.kie.internal.builder.KnowledgeBuilderFactory;
-import org.kie.internal.io.ResourceFactory;
-import org.kie.internal.runtime.StatelessKnowledgeSession;
-import org.kie.internal.utils.KieService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 import org.springframework.test.context.ContextConfiguration;
@@ -35,7 +25,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import static org.kie.api.builder.Message.Level.*;
 import org.kie.api.runtime.KieContainer;
 import org.kie.api.runtime.KieSession;
-import org.kie.api.runtime.StatelessKieSession;
 
 /**
  *
@@ -58,7 +47,10 @@ public class TestDroolsExecution {
         try {
             String rulesStr = IOUtils.toString(myRulesDrl.getInputStream());
             fileSystem = kieServices.newKieFileSystem();
-            fileSystem.write(kieResources.newFileSystemResource(myRulesDrl.getFile()));
+            org.kie.api.io.Resource resource = kieResources.newByteArrayResource(rulesStr.getBytes(Charset.defaultCharset()));
+            resource.setSourcePath("demo.myrules.drl");
+            fileSystem.write(resource);
+           // fileSystem.write(kieResources.newFileSystemResource(myRulesDrl.getFile()));
             //fileSystem.write("src/test/resources/data/myrule.drl", kieResources.newByteArrayResource(rulesStr.getBytes(Charset.defaultCharset())));
         } catch (IOException ex) {
             Logger.getLogger(TestDroolsExecution.class.getName()).log(Level.SEVERE, null, ex);
